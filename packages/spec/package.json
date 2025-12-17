@@ -1,0 +1,48 @@
+{
+  "name": "@repo/spec",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./generated/client/index.js",
+  "types": "./generated/client/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./generated/client/index.d.ts",
+      "import": "./generated/client/index.js"
+    },
+    "./client": {
+      "types": "./generated/client/index.d.ts",
+      "import": "./generated/client/index.js"
+    },
+    "./client/*": {
+      "types": "./generated/client/*.d.ts",
+      "import": "./generated/client/*.js"
+    },
+    "./fetcher": {
+      "types": "./src/fetcher.d.ts",
+      "import": "./src/fetcher.ts"
+    }
+  },
+  "scripts": {
+    "generate": "pnpm generate:openapi && pnpm generate:client",
+    "generate:openapi": "tsp compile src/main.tsp --emit @typespec/openapi3 --output-dir ./generated",
+    "generate:client": "orval",
+    "build": "echo 'Generated files are committed to git'",
+    "clean": "rm -rf generated"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.62.7"
+  },
+  "devDependencies": {
+    "@typespec/compiler": "^0.63.0",
+    "@typespec/http": "^0.63.0",
+    "@typespec/openapi": "^0.63.0",
+    "@typespec/openapi3": "^0.63.0",
+    "@typespec/rest": "^0.63.0",
+    "orval": "^7.3.0",
+    "typescript": "^5.7.2"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0"
+  }
+}
