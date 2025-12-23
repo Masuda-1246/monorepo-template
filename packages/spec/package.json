@@ -28,19 +28,30 @@
     "generate:openapi": "tsp compile src/main.tsp --emit @typespec/openapi3 --output-dir ./generated",
     "generate:client": "orval",
     "build": "echo 'Generated files are committed to git'",
-    "clean": "rm -rf generated"
+    "clean": "rm -rf generated",
+    "dev": "concurrently -k -n \"swagger,watch\" -c \"cyan,yellow\" \"pnpm swagger\" \"pnpm watch\"",
+    "swagger": "tsx scripts/serve-swagger.ts",
+    "watch": "chokidar \"src/**/*.tsp\" -c \"pnpm generate\" --initial"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.62.7"
   },
   "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/swagger-ui-express": "^4.1.7",
     "@typespec/compiler": "^0.63.0",
     "@typespec/http": "^0.63.0",
     "@typespec/openapi": "^0.63.0",
     "@typespec/openapi3": "^0.63.0",
     "@typespec/rest": "^0.63.0",
+    "chokidar-cli": "^3.0.0",
+    "concurrently": "^9.1.2",
+    "express": "^4.21.2",
     "orval": "^7.3.0",
-    "typescript": "^5.7.2"
+    "swagger-ui-express": "^5.0.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "yaml": "^2.6.1"
   },
   "peerDependencies": {
     "react": "^18.0.0"
